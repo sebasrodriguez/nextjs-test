@@ -5,6 +5,7 @@ import { string } from 'prop-types'
 const defaultDescription = ''
 const defaultOGURL = ''
 const defaultOGImage = ''
+const gaTrackingId = 'UA-134275048-1';
 
 const Head = props => (
   <NextHead>
@@ -32,13 +33,16 @@ const Head = props => (
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     {/* Google Analytics */}
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134275048-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaTrackingId}`}></script>
+    <script dangerouslySetInnerHTML={{
+      __html: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-      gtag('config', 'UA-134275048-1');
+        gtag('config', '${gaTrackingId}');
+      `
+      }}>
     </script>
 
   </NextHead>
